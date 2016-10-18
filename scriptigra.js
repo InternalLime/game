@@ -1,22 +1,37 @@
 var c="";
-function matrixArray(rows,columns)
+var x=0;
+var y=0;
+var a=3;
+var b=3;
+var arr="";
+
+function  randomaiz(t)
 {
-  var arr = new Array();
-  for(var y=0; x<columns; i++)
+  for (var i;i<a; i++)
+  {
+    x = rand(0,1);
+    y = rand(0,1);
+  }
+}
+function matrixArray(a,b)
+{
+   arr = new Array();
+  for( y=0; x<a; i++)
   {
     arr[y] = new Array();
-    for(var x=0; x<rows; j++)
+    for( x=0; x<b; j++)
     {
       arr[y][x] = 0;
-      c=+ ", 0";
+      pichat (arr[y][x]);
     }
   }
   return arr;
+  randomaiz(arr);
+  pichat(arr)
 }
-function proverka()
+
+function pichat(p)
 {
-var myMatrix = matrixArray(3,3);
-alert(c);
-document.getElementById("inputValue").value = c;  
+var entered_number = arr[y][x];
+document.getElementById("Text1").value = entered_number;
 }
- proverka();
