@@ -2,6 +2,7 @@ var x='';
 var y='';
 var matrix=""; 
 var inspect = ""; 
+var gamer =2;
 
 function matrixArray(rows,columns)
 {
@@ -17,4 +18,9 @@ function matrixArray(rows,columns)
     document.getElementById("Text1").value = inspect; 
   }
   return matrix;
+}
+
+function abcd()
+{
+      document.getElementById("Text2").value = gamer; 
 }
