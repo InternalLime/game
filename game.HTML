@@ -7,27 +7,50 @@
   <script src="script.js" type="text/javascript"> 
     </script> 
   </head>
-  <body onload="matrixArray(3,3),abcd()">
-    <div> ver 19/10
-    </div>
-    <input type="text"
-         cols="80" 
-         rows="10" 
-         style="width:500px; height:100px;" 
-         name="Text1" 
-         id="Text1" 
-         value="" />
+  <body onload="matrixArray(10,10), document.onkeydown = function(evt) 
+  {
+    evt = evt || window.event;
+    if (evt.ctrlKey && evt.keyCode == 37)
+    {
+        alert(37);
 
-      <div class="block">
-      <input type="button" name="!" value="!" onclick="matrixArray(3,3)">   
+    }
+    if (evt.ctrlKey && evt.keyCode == 38)
+    {
+        funcup();
+    } 
+       if (evt.ctrlKey && evt.keyCode == 39)
+    {
+        funcright();
+    }  
+      if (evt.ctrlKey && evt.keyCode == 40)
+    {
+        funcdown();
+    }
+  };">
+  <div> ver 21/10
+  </div>
+  <td>Тестовое поле¯\_(ツ)_/¯:
+  </td>
+  <div class="pole">
+  <input type="text" id="inputValue" style="font-size:32px" value="" size=21;>     
+  </div> 
+  <td>score:
+  </td>
+  <div class="pole">
+  <input type="text" id="textscore" style="font-size:32px" value="0" size=21;>     
+  </div> 
+  <div class="block">
+  <input type="button" name="!" value="!" onclick="scan();">   
+  </div>
 
-
-  <input type="text2"
-         cols="80" 
-         rows="10" 
-         style="width:500px; height:100px;" 
-         name="Text2" 
-         id="Text2" 
-         value="" />
+  <textarea type="text"
+  cols="80" 
+  rows="10" 
+  style="width:240px; height:180px;" 
+  name="Text1" 
+  id="Text1" 
+  value="" />
+  
   </body>
 </html>
