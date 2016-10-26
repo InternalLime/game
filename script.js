@@ -1,5 +1,3 @@
-var x=10;
-var y=10;
 var matrix=""; 
 var inspect = ""; var insp = ""; 
 var gamer = 2;
@@ -13,73 +11,52 @@ var limit_of_ones=0;
 function input() 
 {
   matrixArray(field_width,height_field);
-  document.onkeydown = function(evt) 
-  {
-    evt = evt || window.event;
-    if (evt.ctrlKey && evt.keyCode == 37)
-    {
-        alert(37);
-    }
-    if (evt.ctrlKey && evt.keyCode == 38)
-    {
-        funcup();
-    } 
-       if (evt.ctrlKey && evt.keyCode == 39)
-    {
-        funcright();
-    }  
-      if (evt.ctrlKey && evt.keyCode == 40)
-    {
-        funcdown();
-    }
-  }
+  print(matrix);
 }
 
 function matrixArray(rows,columns)
 {
    matrix = new Array();
-  for(x=0; x<columns; x++)
+  for( var x=0;  x<columns; x++)
   {
     matrix[x] = new Array();
-    for(y=0; y<rows; y++)
+    for( var y=0; y<rows; y++)
     {
       matrix[x][y] = Math.floor((Math.random() *2)); 
     } 
-
-    print(matrix);
   }
   return matrix;
 }
 
 function print(m)
 {
-  for(x=0; x<field_width; x++)
+
+  for(var a = 1; a<field_width; a++)
   {
-    m[x] = Array();
-    for(y=0; y<height_field; y++)
+    for(var b = 1; b<height_field; b++)
     {
-      m[x][y] = Math.floor((Math.random() *2));
-      inspect += m[x][y] + ", "; 
+      inspect += matrix[a][b]; 
+      inspect += " "; 
     } 
     inspect += "\n";
-    document.getElementById("Text1").value = inspect; 
   }
-}
 
- function  funcup()
- {
-   document.getElementById("inputValue").value = "38";  
- }
+  document.getElementById("Text1").value = inspect;   
+}
 
 function scan()
 {
-  document.getElementById("inputValue").value = "X="+ Xscan + "Y=" + Yscan;
-  x = Xscan;
-  y = Yscan;
-  if (matrix[x][y] == 1)
+  document.getElementById("inputValue").value = "X="+ Xscan + "Y=" + Xscan;
+  if (matrix[Xscan][Yscan] == 1)
   {
     score = score + 1;
     document.getElementById("textscore").value = score;  
-    matrix[x][y] =0; //Как это записать???
+    matrix[Xscan][Yscan] =0;
+    document.getElementById("Text1").value = ""; 
+    print(matrix);
   }
 }
+
+
+
+
