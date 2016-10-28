@@ -6,8 +6,10 @@ var score = 0;
 var field_width = 11;
 var height_field = 11; 
 var coordinates = "1,1";
-var a =0;
+var a = 0;
 var b = 0;
+var number_of_coins = 40; 
+var number_of_bombs = 10;
 
 function input() 
 {
@@ -17,19 +19,19 @@ function input()
   {
      if (evt.keyCode == 37)
     {
-        func37();
+        function_left();
     }
     if (evt.keyCode == 38)
     {
-        func38();
+        function_up();
     } 
        if (evt.keyCode == 39)
     {
-        func39();
+        function_right();
     }  
       if (evt.keyCode == 40)
     {
-        func40();
+        function_down();
     }
   }
 }
@@ -45,146 +47,201 @@ function matrixArray(rows,columns)
       matrix[x][y] = 0;
     } 
   }
-  for( var u=0; u<41; u++)
+  coins();
+  bombs();
+  return matrix;
+}  
+
+function coins()
+{
+  for( var already_have_coins=0; already_have_coins<number_of_coins; already_have_coins++)
   {
-    i = Math.floor((Math.random() *11)); 
-    p = Math.floor((Math.random() *11)); 
-    if (matrix[i][p] == 0)
+    x = Math.floor((Math.random() *(field_width-1))+1); 
+    y = Math.floor((Math.random() *(field_width-1))+1); 
+    if (matrix[x][y] == 0)
     {
-      matrix[i][p] = 1;
+      matrix[x][y] = 1;
     }
     else
     {
-      if(u==0)
+      if(already_have_coins==0)
       {
       }
       else
       {
-        u= u-1;
+        already_have_coins= already_have_coins-1;
       }
     }
   }
-  return matrix;
-}
+}  
+
+function bombs()
+{
+  for( var already_have_bomb= 0 ; already_have_bomb<number_of_bombs; already_have_bomb++)
+  {
+    x = Math.floor((Math.random() *(field_width-1))+1); 
+    y = Math.floor((Math.random() *(field_width-1))+1); 
+    if (matrix[x][y] == 0)
+    {
+      matrix[x][y] = 2;
+    }
+    else
+    {
+      if(already_have_bomb==0)
+      {
+      }
+      else
+      {
+        already_have_bomb= already_have_bomb-1;
+      }
+    }
+  }
+}  
 
 function print(m)
 {
   inspect="";
   document.getElementById("Text1").value = ""; 
-  for(a = 1; a<field_width; a++)
+  for(a = 1; a < field_width; a++)
   {
-    for(b = 1; b<height_field; b++)
+    for(b = 1; b < height_field; b++)
     {     
       inspect += matrix[a][b]; 
       inspect += " "; 
       money();
+      add_bomb();
     } 
     inspect += "\n";
   }
   document.getElementById("Text1").value = inspect;  
 }
 
-function scan()
+function update()
 {
   guy();
+  chek_bombs();
   if (matrix[Xscan][Yscan] == 1)
   {
     score = score + 1;
+    chek_win();
     document.getElementById("textscore").value = score;  
     matrix[Xscan][Yscan] =0;
     print(matrix);
   }
   else
   {
-  score = score + 0; 
-  document.getElementById("textscore").value = score;  
+    score = score + 0; 
+    document.getElementById("textscore").value = score;  
   }
 }
 
- function func39()
+function function_right()
 {
   if ( Yscan == 10)
   {
     document.getElementById("inputValue").value = "X="+ Xscan + "Y=" + Yscan;
-    scan();
   }
-   else
-   {
-        del_guy();
+  else
+  {
+    del_guy();
     Yscan = Yscan + 1;
     document.getElementById("inputValue").value = "X="+ Xscan + "Y=" + Yscan;
-    scan();
-   }
+  }
+  update();  
 }
 
- function func37()
+function function_left()
 {
-
   if ( Yscan == 1)
   {
     document.getElementById("inputValue").value = "X="+ Xscan + "Y=" + Yscan;
-    scan();
   }
-   else
-   {
+  else
+  {
     del_guy();
     Yscan = Yscan -1;
     document.getElementById("inputValue").value = "X="+ Xscan + "Y=" + Yscan;
-    scan();
-   }
+  }
+  update();
 }
- function func40()
+function function_down()
 {
-
   if ( Xscan == 10)
   {
     document.getElementById("inputValue").value = "X="+ Xscan + "Y=" + Yscan;
-    scan();
   }
-   else
-   {
-        del_guy();
+  else
+  {
+    del_guy();
     Xscan = Xscan + 1;
     document.getElementById("inputValue").value = "X="+ Xscan + "Y=" + Yscan;
-    scan();
-   }
+  }
+  update();
 }
- function func38()
+
+function function_up()
 {
-;
   if ( Xscan == 1)
   {
     document.getElementById("inputValue").value = "X="+ Xscan + "Y=" + Yscan;
-    scan();
   }
-   else
-   {
+  else
+  {
     del_guy();
     Xscan = Xscan - 1;
     document.getElementById("inputValue").value = "X="+ Xscan + "Y=" + Yscan;
-    scan();
-   }
+  }
+  update();
 }
- function money()
+
+function money()
 {
   if (matrix[a][b] == 1)
   {
     coordinates = a+","+b;
     document.getElementById(coordinates).src="2.png";
-    coordinates = 0;
   }
 }
 
- function guy()
+function guy()
 {
   coordinates = Xscan+","+Yscan;
   document.getElementById(coordinates).src="3.png";
-  coordinates = 0;
 }
 
-  function del_guy()
-  {
+function del_guy()
+{
   coordinates = Xscan+","+Yscan;
   document.getElementById(coordinates).src="1.png";
-  coordinates = 0;
+}
+
+function add_bomb()
+{
+  if (matrix[a][b] == 2)
+  {
+    coordinates = a+","+b;
+    document.getElementById(coordinates).src="4.png";
+  }
+}
+function chek_bombs()
+{
+  if (matrix[Xscan][Yscan] == 2)
+  {
+    document.getElementById("level").value = "Game over";  
+    matrix[Xscan][Yscan] =0;
+    score = score - 1000;
+    document.getElementById("textscore").value = score;  
+    print(matrix); 
+  }
+}
+
+function chek_win()
+{
+  if (score == 40)
+  {
+    document.getElementById("textscore").value = score;  
+    matrix[Xscan][Yscan] =0;
+    print(matrix);
+    document.getElementById("level").value = "Win"; 
+  }
 }
