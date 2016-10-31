@@ -10,30 +10,38 @@ var a = 0;
 var b = 0;
 var number_of_coins = 40; 
 var number_of_bombs = 10;
+var z = 0;
 
 function input() 
 {
   matrixArray(field_width,height_field);
-  print(matrix);
-  document.onkeydown = function(evt) 
+  print();
+  best_func();
+  func()
+}
+
+function func(evt)
+{ 
+  if (evt.keyCode == 37)
   {
-     if (evt.keyCode == 37)
-    {
-        function_left();
-    }
-    if (evt.keyCode == 38)
-    {
-        function_up();
-    } 
-       if (evt.keyCode == 39)
-    {
-        function_right();
-    }  
-      if (evt.keyCode == 40)
-    {
-        function_down();
-    }
+    left();
   }
+  if (evt.keyCode == 38)
+  {
+    up();
+  } 
+     if (evt.keyCode == 39)
+  {
+    right();
+  }  
+    if (evt.keyCode == 40)
+  {
+    down();
+  }
+}
+function best_func() 
+{
+  document.onkeydown = func;
 }
 
 function matrixArray(rows,columns)
@@ -47,58 +55,53 @@ function matrixArray(rows,columns)
       matrix[x][y] = 0;
     } 
   }
-  coins();
-  bombs();
-  return matrix;
+  generate("coun");
+  generate("bomb");
 }  
 
-function coins()
+function  generate(object)
 {
-  for( var already_have_coins=0; already_have_coins<number_of_coins; already_have_coins++)
+  switch(object)
   {
-    x = Math.floor((Math.random() *(field_width-1))+1); 
-    y = Math.floor((Math.random() *(field_width-1))+1); 
-    if (matrix[x][y] == 0)
+    case "coun":
+    for( var already_have_coins=0; already_have_coins<number_of_coins; already_have_coins++)
     {
-      matrix[x][y] = 1;
-    }
-    else
-    {
-      if(already_have_coins==0)
+      x = Math.floor((Math.random() *(field_width-1))+1); 
+      y = Math.floor((Math.random() *(field_width-1))+1); 
+      if (matrix[x][y] == 0)
       {
+        matrix[x][y] = 1;  
+        coordinates = x+","+y;
+        document.getElementById(coordinates).src="2.png";
       }
       else
       {
         already_have_coins= already_have_coins-1;
       }
     }
-  }
-}  
 
-function bombs()
-{
-  for( var already_have_bomb= 0 ; already_have_bomb<number_of_bombs; already_have_bomb++)
-  {
-    x = Math.floor((Math.random() *(field_width-1))+1); 
-    y = Math.floor((Math.random() *(field_width-1))+1); 
-    if (matrix[x][y] == 0)
+    break; 
+    case "bomb":   
+    for( var already_have_bomb= 0 ; already_have_bomb<number_of_bombs; already_have_bomb++)
     {
-      matrix[x][y] = 2;
-    }
-    else
-    {
-      if(already_have_bomb==0)
+      x = Math.floor((Math.random() *(field_width-1))+1); 
+      y = Math.floor((Math.random() *(field_width-1))+1); 
+      if (matrix[x][y] == 0)
       {
+        matrix[x][y] = 2;  
+        coordinates = x+","+y;
+        document.getElementById(coordinates).src="4.png";
       }
       else
       {
         already_have_bomb= already_have_bomb-1;
       }
-    }
+    }  
+    break; 
   }
-}  
+}
 
-function print(m)
+function print()
 {
   inspect="";
   document.getElementById("Text1").value = ""; 
@@ -108,8 +111,6 @@ function print(m)
     {     
       inspect += matrix[a][b]; 
       inspect += " "; 
-      money();
-      add_bomb();
     } 
     inspect += "\n";
   }
@@ -118,130 +119,118 @@ function print(m)
 
 function update()
 {
-  guy();
-  chek_bombs();
+  show_guy();
+  if (matrix[Xscan][Yscan] == 2)
+  {
+    restart() 
+  }
   if (matrix[Xscan][Yscan] == 1)
   {
     score = score + 1;
-    chek_win();
-    document.getElementById("textscore").value = score;  
+    if (score == number_of_coins)
+    {
+      document.getElementById("level").value = "Win"; 
+    } 
     matrix[Xscan][Yscan] =0;
-    print(matrix);
   }
-  else
+  if (matrix[Xscan][Yscan] == 0)
   {
     score = score + 0; 
-    document.getElementById("textscore").value = score;  
   }
+  document.getElementById("textscore").value = score;  
+  matrix[Xscan][Yscan] =0;
+  print(); 
 }
 
-function function_right()
+function right()
 {
   if ( Yscan == 10)
   {
-    document.getElementById("inputValue").value = "X="+ Xscan + "Y=" + Yscan;
   }
   else
   {
-    del_guy();
+    hide_guy();
     Yscan = Yscan + 1;
-    document.getElementById("inputValue").value = "X="+ Xscan + "Y=" + Yscan;
   }
-  update();  
+  serialize_guy_position()
+  update(); 
 }
 
-function function_left()
+function left()
 {
   if ( Yscan == 1)
   {
-    document.getElementById("inputValue").value = "X="+ Xscan + "Y=" + Yscan;
   }
   else
   {
-    del_guy();
+    hide_guy();
     Yscan = Yscan -1;
-    document.getElementById("inputValue").value = "X="+ Xscan + "Y=" + Yscan;
   }
+  serialize_guy_position()
   update();
 }
-function function_down()
+function down()
 {
   if ( Xscan == 10)
   {
-    document.getElementById("inputValue").value = "X="+ Xscan + "Y=" + Yscan;
   }
   else
   {
-    del_guy();
+    hide_guy();
     Xscan = Xscan + 1;
-    document.getElementById("inputValue").value = "X="+ Xscan + "Y=" + Yscan;
   }
+  serialize_guy_position()
   update();
 }
 
-function function_up()
+function up()
 {
   if ( Xscan == 1)
   {
-    document.getElementById("inputValue").value = "X="+ Xscan + "Y=" + Yscan;
   }
   else
   {
-    del_guy();
+    hide_guy();
     Xscan = Xscan - 1;
-    document.getElementById("inputValue").value = "X="+ Xscan + "Y=" + Yscan;
-  }
+     }
+  serialize_guy_position()
   update();
 }
 
-function money()
+function serialize_guy_position()
 {
-  if (matrix[a][b] == 1)
-  {
-    coordinates = a+","+b;
-    document.getElementById(coordinates).src="2.png";
-  }
+  document.getElementById("inputValue").value = "X="+ Xscan + "Y=" + Yscan;  
 }
 
-function guy()
+function show_guy()
 {
   coordinates = Xscan+","+Yscan;
   document.getElementById(coordinates).src="3.png";
 }
 
-function del_guy()
+function hide_guy()
 {
   coordinates = Xscan+","+Yscan;
   document.getElementById(coordinates).src="1.png";
 }
 
-function add_bomb()
+
+
+
+function restart() 
 {
-  if (matrix[a][b] == 2)
-  {
-    coordinates = a+","+b;
-    document.getElementById(coordinates).src="4.png";
-  }
-}
-function chek_bombs()
-{
-  if (matrix[Xscan][Yscan] == 2)
-  {
-    document.getElementById("level").value = "Game over";  
-    matrix[Xscan][Yscan] =0;
-    score = score - 1000;
-    document.getElementById("textscore").value = score;  
-    print(matrix); 
-  }
+  hide_guy()
+  alert ('Game over.');  
+  score = 0 
+  serialize_guy_position()
+  input();
 }
 
-function chek_win()
+
+function  win_game() 
 {
-  if (score == 40)
+  if (score == number_of_coins)
   {
-    document.getElementById("textscore").value = score;  
-    matrix[Xscan][Yscan] =0;
-    print(matrix);
-    document.getElementById("level").value = "Win"; 
-  }
+    document.getElementById("level").value = "You Win"; 
+  } 
 }
