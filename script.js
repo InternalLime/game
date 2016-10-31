@@ -8,9 +8,10 @@ var height_field = 11;
 var coordinates = "1,1";
 var a = 0;
 var b = 0;
-var number_of_coins = 40; 
-var number_of_bombs = 10;
-var z = 0;
+var number_of_coins = 15; 
+var number_of_bombs = 20;
+
+var lvl= 1;
 
 function input() 
 {
@@ -53,11 +54,14 @@ function matrixArray(rows,columns)
     for( var y=0; y<rows; y++)
     {
       matrix[x][y] = 0;
+              document.getElementById(coordinates).src="1.png";
     } 
   }
   generate("coun");
   generate("bomb");
 }  
+
+
 
 function  generate(object)
 {
@@ -101,6 +105,9 @@ function  generate(object)
   }
 }
 
+
+
+
 function print()
 {
   inspect="";
@@ -127,11 +134,8 @@ function update()
   if (matrix[Xscan][Yscan] == 1)
   {
     score = score + 1;
-    if (score == number_of_coins)
-    {
-      document.getElementById("level").value = "Win"; 
-    } 
     matrix[Xscan][Yscan] =0;
+    win_game(); 
   }
   if (matrix[Xscan][Yscan] == 0)
   {
@@ -152,7 +156,7 @@ function right()
     hide_guy();
     Yscan = Yscan + 1;
   }
-  serialize_guy_position()
+  serialize_guy_position();
   update(); 
 }
 
@@ -166,7 +170,7 @@ function left()
     hide_guy();
     Yscan = Yscan -1;
   }
-  serialize_guy_position()
+  serialize_guy_position();
   update();
 }
 function down()
@@ -179,7 +183,7 @@ function down()
     hide_guy();
     Xscan = Xscan + 1;
   }
-  serialize_guy_position()
+  serialize_guy_position();
   update();
 }
 
@@ -193,7 +197,7 @@ function up()
     hide_guy();
     Xscan = Xscan - 1;
      }
-  serialize_guy_position()
+  serialize_guy_position();
   update();
 }
 
@@ -220,17 +224,52 @@ function hide_guy()
 function restart() 
 {
   hide_guy()
-  alert ('Game over.');  
-  score = 0 
-  serialize_guy_position()
-  input();
+  alert ('Game Over');  
+  score = 0;
+  lvl=1;
+  document.getElementById("level").value = 'level: '+lvl;  
+  for(a = 1; a < field_width; a++)
+  {
+    for(b = 1; b < height_field; b++)
+    {     
+      matrix[a][b] = 0;
+      coordinates = a+","+b;
+      document.getElementById(coordinates).src="1.png";
+    }
+  }  
+  Xscan = 1;
+  Yscan = 1;
+  serialize_guy_position();
+  generate("coun");
+  generate("bomb");
+  print();
 }
+
 
 
 function  win_game() 
 {
-  if (score == number_of_coins)
+  if (score == number_of_coins*lvl)
   {
-    document.getElementById("level").value = "You Win"; 
+  hide_guy()
+  alert ('You win');  
+  lvl=lvl+1;
+  document.getElementById("level").value = 'level: '+lvl;  
+  for(a = 1; a < field_width; a++)
+  {
+    for(b = 1; b < height_field; b++)
+    {     
+      matrix[a][b] = 0;
+      coordinates = a+","+b;
+      document.getElementById(coordinates).src="1.png";
+    }
+  }  
+  Xscan = 1;
+  Yscan = 1;
+  serialize_guy_position();
+  generate("coun");
+  generate("bomb");
+  print();
   } 
 }
+
