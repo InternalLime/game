@@ -8,18 +8,18 @@ var height_field = 11;
 var coordinates = "1,1";
 var a = 0;
 var b = 0;
-var number_of_coins = 15; 
-var number_of_bombs = 20;
+var number_of_coins = 30; 
+var number_of_bombs = 15;
 
 var lvl= 1;
 
 function input() 
-{
+{  
   matrixArray(field_width,height_field);
   print();
   best_func();
-  func()
-}
+  func();
+  }
 
 function func(evt)
 { 
@@ -54,7 +54,7 @@ function matrixArray(rows,columns)
     for( var y=0; y<rows; y++)
     {
       matrix[x][y] = 0;
-              document.getElementById(coordinates).src="1.png";
+      document.getElementById(coordinates).src="1.png";
     } 
   }
   generate("coun");
@@ -68,45 +68,32 @@ function  generate(object)
   switch(object)
   {
     case "coun":
-    for( var already_have_coins=0; already_have_coins<number_of_coins; already_have_coins++)
-    {
-      x = Math.floor((Math.random() *(field_width-1))+1); 
-      y = Math.floor((Math.random() *(field_width-1))+1); 
-      if (matrix[x][y] == 0)
-      {
-        matrix[x][y] = 1;  
-        coordinates = x+","+y;
-        document.getElementById(coordinates).src="2.png";
-      }
-      else
-      {
-        already_have_coins= already_have_coins-1;
-      }
-    }
-
+    var number_of_object = number_of_coins;
+    var object_value =1;
+    var object_picture = "2.png";
     break; 
     case "bomb":   
-    for( var already_have_bomb= 0 ; already_have_bomb<number_of_bombs; already_have_bomb++)
-    {
-      x = Math.floor((Math.random() *(field_width-1))+1); 
-      y = Math.floor((Math.random() *(field_width-1))+1); 
-      if (matrix[x][y] == 0)
-      {
-        matrix[x][y] = 2;  
-        coordinates = x+","+y;
-        document.getElementById(coordinates).src="4.png";
-      }
-      else
-      {
-        already_have_bomb= already_have_bomb-1;
-      }
-    }  
+    var number_of_object = number_of_bombs;
+    var object_value =2;
+    var object_picture = "4.png";
     break; 
   }
+  for(var already_have_object=0; already_have_object<number_of_object; already_have_object++)
+  {
+    x = Math.floor((Math.random() *(field_width-1))+1); 
+    y = Math.floor((Math.random() *(field_width-1))+1); 
+    if (matrix[x][y] == 0)
+    {
+      matrix[x][y] = object_value;  
+      coordinates = x+","+y;
+      document.getElementById(coordinates).src=object_picture;
+    }
+    else
+    {
+      already_have_object=already_have_object-1;
+    }
+  }
 }
-
-
-
 
 function print()
 {
@@ -148,10 +135,7 @@ function update()
 
 function right()
 {
-  if ( Yscan == 10)
-  {
-  }
-  else
+  if ( Yscan < field_width-1)
   {
     hide_guy();
     Yscan = Yscan + 1;
@@ -162,10 +146,7 @@ function right()
 
 function left()
 {
-  if ( Yscan == 1)
-  {
-  }
-  else
+  if ( Yscan > 1)
   {
     hide_guy();
     Yscan = Yscan -1;
@@ -175,10 +156,7 @@ function left()
 }
 function down()
 {
-  if ( Xscan == 10)
-  {
-  }
-  else
+  if ( Xscan < field_width-1)
   {
     hide_guy();
     Xscan = Xscan + 1;
@@ -189,10 +167,7 @@ function down()
 
 function up()
 {
-  if ( Xscan == 1)
-  {
-  }
-  else
+  if ( Xscan > 1)
   {
     hide_guy();
     Xscan = Xscan - 1;
@@ -272,4 +247,3 @@ function  win_game()
   print();
   } 
 }
-
