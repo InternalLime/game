@@ -61,8 +61,6 @@ function matrixArray(rows,columns)
   generate("bomb");
 }  
 
-
-
 function  generate(object)
 {
   switch(object)
