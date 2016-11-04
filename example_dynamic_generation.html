@@ -1,0 +1,54 @@
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css"/> 
+
+</head>
+<body onload="generate();">
+    <div class="region">
+      <div class="center">
+        <div id="sandbox" class="size">
+            <!-- Динамически вставляем блоки сюда -->
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+       
+    var block_width = 75;
+    var block_height = 50;
+
+    function creteDivWithClass(parent, className)
+    {
+        var elem = document.createElement("div");
+        elem.className = className;
+        parent.appendChild(elem);
+        return elem;
+    }
+
+    function generate()
+    {
+        var sandbox = document.getElementById("sandbox");
+
+        var cols = 4;
+        var rows = 5;
+
+        var field_width = cols * block_width + 2 * cols; // ширина блока + ширрина границы
+        var field_height = rows * block_height + 2 * rows;
+
+        sandbox.style.height = field_height;
+        sandbox.style.width = field_width;
+
+        for (var i = 0; i < rows; i++)
+        {
+            for (var j = 0; j < cols; j++)
+            {
+                var block = creteDivWithClass(sandbox, "block");
+                block.style.height = block_height;
+                block.style.width = block_width;
+            }
+            creteDivWithClass(sandbox, "new_line");
+        }
+    }
+    </script>
+</body>
+</html>
