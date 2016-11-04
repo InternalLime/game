@@ -44,7 +44,6 @@ function creteDivWithClass(parent, className)
     if (className == "block")
     {
      element.id = a + ","+ b;
-     element.image:url(2.png);  ///!!
     }
     parent.appendChild(element);
     return element;
@@ -84,6 +83,7 @@ function matrixArray(rows,columns)
     {
       matrix[x][y] = 0;
       coordinates = x + "," + y;
+      document.getElementById(coordinates).src="1.png";
     }
   }
   generate("coun");
@@ -97,12 +97,12 @@ function  generate(object)
     case "coun":
     var number_of_object = number_of_coins;
     var object_value =1;
-     object_picture = "2.png";///!!
+     object_picture = "2.png";
     break; 
     case "bomb":   
     var number_of_object = number_of_bombs;
     var object_value =2;
-    object_picture  = "4.png";///!!
+    object_picture  = "4.png";
     break; 
   }
   for(var already_have_object=0; already_have_object<number_of_object; already_have_object++)
@@ -113,7 +113,7 @@ function  generate(object)
     {
       matrix[x][y] = object_value;  
       coordinates = x+","+y;
-     block.image:object_picture;///!!
+      document.getElementById(coordinates).src=object_picture;
     }
     else
     {
