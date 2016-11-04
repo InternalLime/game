@@ -5,45 +5,50 @@ var Yscan = 1;
 var score = 0; 
 var field_width = 11;
 var height_field = 11; 
-var coordinates = "1,1";
+var coordinates = "0,0";
 var a = 0;
 var b = 0;
 var number_of_coins = 30; 
 var number_of_bombs = 15;
+var object_picture ="";
 
 var lvl= 1;
 
 function input() 
 {  
+  makegame();
   matrixArray(field_width,height_field);
   print();
   best_func();
   func();
-  makegame();
+
   }
 function makegame()
 {
-  var container = document.getElementById('toc');
-  if (!content) return;
-  var sections = [];
-  findSections(document, sections);
-  var anchor = document.createElement("a"); // Создать узел <a>
-  anchor.name = "block";
-  for(a = 1; a < field_width; a++)
+  var box = document.getElementById("box");
+  creteDivWithClass(box, "new_line");
+  for ( a = 0; a < field_width-1; a++)
   {
-    for(b = 1; b < height_field; b++)
-    {     
-      anchor.id = a+ ","+ b;
-      if (matrix[a][b] = 0)
-      {
-         <img src="1.png">
-      }
-    } 
+    for ( b = 0; b < height_field-1; b++)
+    {
+      var block = creteDivWithClass(box, "block");
+    }
+    creteDivWithClass(box, "new_line");
   }
 }
 
-
-
+function creteDivWithClass(parent, className)
+{
+    var element = document.createElement("div");
+    element.className = className;
+    if (className == "block")
+    {
+     element.id = a + ","+ b;
+     element.image:url(2.png);  ///!!
+    }
+    parent.appendChild(element);
+    return element;
+}
 
 function func(evt)
 { 
@@ -78,12 +83,8 @@ function matrixArray(rows,columns)
     for( var y=0; y<rows; y++)
     {
       matrix[x][y] = 0;
-      var anchor = document.createElement("a"); // Создать узел <a>
-      anchor.name = ".block ";
-      anchor.id = ".block "; 
-      container.parentNode.insertBefore(anchor, container);
-      document.getElementById(coordinates).src="1.png";
-    } 
+      coordinates = x + "," + y;
+    }
   }
   generate("coun");
   generate("bomb");
@@ -96,12 +97,12 @@ function  generate(object)
     case "coun":
     var number_of_object = number_of_coins;
     var object_value =1;
-    var object_picture = "2.png";
+     object_picture = "2.png";///!!
     break; 
     case "bomb":   
     var number_of_object = number_of_bombs;
     var object_value =2;
-    var object_picture = "4.png";
+    object_picture  = "4.png";///!!
     break; 
   }
   for(var already_have_object=0; already_have_object<number_of_object; already_have_object++)
@@ -112,7 +113,7 @@ function  generate(object)
     {
       matrix[x][y] = object_value;  
       coordinates = x+","+y;
-      document.getElementById(coordinates).src=object_picture;
+     block.image:object_picture;///!!
     }
     else
     {
