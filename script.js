@@ -19,7 +19,31 @@ function input()
   print();
   best_func();
   func();
+  makegame();
   }
+function makegame()
+{
+  var container = document.getElementById('toc');
+  if (!content) return;
+  var sections = [];
+  findSections(document, sections);
+  var anchor = document.createElement("a"); // Создать узел <a>
+  anchor.name = "block";
+  for(a = 1; a < field_width; a++)
+  {
+    for(b = 1; b < height_field; b++)
+    {     
+      anchor.id = a+ ","+ b;
+      if (matrix[a][b] = 0)
+      {
+         <img src="1.png">
+      }
+    } 
+  }
+}
+
+
+
 
 function func(evt)
 { 
@@ -54,6 +78,10 @@ function matrixArray(rows,columns)
     for( var y=0; y<rows; y++)
     {
       matrix[x][y] = 0;
+      var anchor = document.createElement("a"); // Создать узел <a>
+      anchor.name = ".block ";
+      anchor.id = ".block "; 
+      container.parentNode.insertBefore(anchor, container);
       document.getElementById(coordinates).src="1.png";
     } 
   }
@@ -120,7 +148,7 @@ function update()
   {
     score = score + 1;
     matrix[Xscan][Yscan] =0;
-    win_game(); 
+    chek_win(); 
   }
   if (matrix[Xscan][Yscan] == 0)
   {
@@ -220,7 +248,7 @@ function restart()
 
 
 
-function  win_game() 
+function  chek_win() 
 {
   if (score == number_of_coins*lvl)
   {
