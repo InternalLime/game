@@ -82,7 +82,7 @@ function matrixArray(rows,columns)
     for( var y=0; y<rows; y++)
     {
       matrix[x][y] = 0;
-     coordinates= "div#"+x+","+y;
+     coordinates= x+","+y;
      document.getElementById(coordinates).scr="3.png";
     }
   }
@@ -107,8 +107,8 @@ function  generate(object)
   }
   for(var already_have_object=0; already_have_object<number_of_object; already_have_object++)
   {
-    x = Math.floor((Math.random() *(field_width))+1); 
-    y = Math.floor((Math.random() *(field_width))+1); 
+    x = Math.floor((Math.random() *(field_width))); 
+    y = Math.floor((Math.random() *(field_width))); 
     if (matrix[x][y] == 0)
     {
       matrix[x][y] = object_value;  
