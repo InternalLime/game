@@ -179,7 +179,7 @@ function right()
 
 function left()
 {
-  if ( Yscan > 1)
+  if ( Yscan > 0)
   {
     hide_guy();
     Yscan = Yscan -1;
@@ -200,7 +200,7 @@ function down()
 
 function up()
 {
-  if ( Xscan > 1)
+  if ( Xscan > 0)
   {
     hide_guy();
     Xscan = Xscan - 1;
