@@ -108,7 +108,7 @@ function  generate(object)
   for(var already_have_object=0; already_have_object<number_of_object; already_have_object++)
   {
     x = Math.floor((Math.random() *(field_width))+1); 
-    y = Math.floor((Math.random() *(field_width-1))+1); 
+    y = Math.floor((Math.random() *(field_width))+1); 
     if (matrix[x][y] == 0)
     {
       matrix[x][y] = object_value;  
