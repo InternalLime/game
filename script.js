@@ -11,7 +11,6 @@ var b = 0;
 var number_of_coins = 30; 
 var number_of_bombs = 15;
 var object_picture ="";
-
 var lvl= 1;
 
 function input() 
@@ -19,8 +18,8 @@ function input()
   makegame();
   matrixArray(field_width,height_field);
   print();
-  best_func();
-  func();
+  clicking_test();
+  
 
   }
 function makegame()
@@ -39,12 +38,12 @@ function makegame()
 
 function creteDivWithClass(parent, className)
 {
-    var element = document.createElement("div");
+    var element = document.createElement("img");
     element.className = className;
     if (className== "block")
     {
       element.id = a+","+b;
-    }
+     }
     parent.appendChild(element);
     return element;
 }
@@ -68,7 +67,7 @@ function func(evt)
     down();
   }
 }
-function best_func() 
+function clicking_test() 
 {
   document.onkeydown = func;
 }
@@ -76,14 +75,14 @@ function best_func()
 function matrixArray(rows,columns)
 {
   matrix = new Array();
-  for( var x=0;  x<columns; x++)
+  for( a=0;  a<columns; a++)
   {
-    matrix[x] = new Array();
-    for( var y=0; y<rows; y++)
+    matrix[a] = new Array();
+    for( b=0; b<rows; b++)
     {
-      matrix[x][y] = 0;
-     coordinates= x+","+y;
-     document.getElementById(coordinates).scr="3.png";
+      matrix[a][b] = 0;
+      coordinates = a+","+b;
+      document.getElementById(coordinates).src="1.png";
     }
   }
   generate("coun");
