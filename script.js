@@ -3,8 +3,8 @@ var inspect = "";
 var Xscan = 1;
 var Yscan = 1;
 var score = 0; 
-var field_width = 11;
-var height_field = 11; 
+var field_width = 10;
+var height_field = 10; 
 var coordinates = "0,0";
 var a = 0;
 var b = 0;
@@ -27,9 +27,9 @@ function makegame()
 {
   var box = document.getElementById("box");
   creteDivWithClass(box, "new_line");
-  for ( a = 0; a < field_width-1; a++)
+  for ( a = 0; a < field_width; a++)
   {
-    for ( b = 0; b < height_field-1; b++)
+    for ( b = 0; b < height_field; b++)
     {
       var block = creteDivWithClass(box, "block");
     }
@@ -41,9 +41,9 @@ function creteDivWithClass(parent, className)
 {
     var element = document.createElement("div");
     element.className = className;
-    if (className == "block")
+    if (className== "block")
     {
-     element.id = a + ","+ b;
+      element.id = a+","+b;
     }
     parent.appendChild(element);
     return element;
@@ -82,8 +82,8 @@ function matrixArray(rows,columns)
     for( var y=0; y<rows; y++)
     {
       matrix[x][y] = 0;
-      coordinates = x + "," + y;
-      document.getElementById(coordinates).src="1.png";
+     coordinates= "div#"+x+","+y;
+     document.getElementById(coordinates).scr="3.png";
     }
   }
   generate("coun");
@@ -107,7 +107,7 @@ function  generate(object)
   }
   for(var already_have_object=0; already_have_object<number_of_object; already_have_object++)
   {
-    x = Math.floor((Math.random() *(field_width-1))+1); 
+    x = Math.floor((Math.random() *(field_width))+1); 
     y = Math.floor((Math.random() *(field_width-1))+1); 
     if (matrix[x][y] == 0)
     {
@@ -122,21 +122,27 @@ function  generate(object)
   }
 }
 
+
+
 function print()
 {
   inspect="";
   document.getElementById("Text1").value = ""; 
-  for(a = 1; a < field_width; a++)
+  for(a = 0; a < field_width; a++)
   {
-    for(b = 1; b < height_field; b++)
+    for(b = 0; b < height_field; b++)
     {     
       inspect += matrix[a][b]; 
       inspect += " "; 
-    } 
+     } 
     inspect += "\n";
   }
-  document.getElementById("Text1").value = inspect;  
+  document.getElementById("Text1").value = inspect; 
+  
 }
+
+
+
 
 function update()
 {
@@ -230,9 +236,9 @@ function restart()
   score = 0;
   lvl=1;
   document.getElementById("level").value = 'level: '+lvl;  
-  for(a = 1; a < field_width; a++)
+  for(a = 0; a < field_width; a++)
   {
-    for(b = 1; b < height_field; b++)
+    for(b = 0; b < height_field; b++)
     {     
       matrix[a][b] = 0;
       coordinates = a+","+b;
@@ -257,20 +263,21 @@ function  chek_win()
   alert ('You win');  
   lvl=lvl+1;
   document.getElementById("level").value = 'level: '+lvl;  
-  for(a = 1; a < field_width; a++)
+  for(a = 0; a < field_width; a++)
   {
-    for(b = 1; b < height_field; b++)
+    for(b = 0; b < height_field; b++)
     {     
       matrix[a][b] = 0;
       coordinates = a+","+b;
       document.getElementById(coordinates).src="1.png";
     }
   }  
-  Xscan = 1;
-  Yscan = 1;
+  Xscan = 0;
+  Yscan = 0;
   serialize_guy_position();
   generate("coun");
   generate("bomb");
   print();
   } 
 }
+
