@@ -31,19 +31,19 @@ function plan(initiative)
   show('none');
   switch(initiative)
   {
-    case "7":
+    case "a":
     field_width = 7;
     height_field = 7; 
     number_of_coins = 2; 
     number_of_bombs = 10;
     break; 
-    case "10":   
+    case "b":   
     field_width = 10;
     height_field = 10; 
     number_of_coins = 3; 
     number_of_bombs = 15;
     break; 
-    case "14":   
+    case "c":   
     field_width = 14;
     height_field = 14; 
     number_of_coins = 4; 
