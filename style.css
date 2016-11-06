@@ -37,6 +37,55 @@
   float: left; 
   display: block;
   position: relative;
-  : 2.png;
 }
 
+  .selection
+  {
+  border: solid 1px black;
+  height: 70px;
+  width: 250px;
+  float: left; 
+  position: relative;
+  text-align: center;
+  line-height: 95px; 
+  font-family: 'Times New Roman', Times, serif; 
+  font-size: 180%;
+  }
+
+input[type= button] 
+{
+  width: 250px; 
+  height: 70px;      
+  font-family: 'Times New Roman'Times, serif;
+  font-size: 100%; 
+  text-align: center;
+  line-height: 95px; 
+}
+
+  #wrap{
+    display: none;
+    opacity: 0.6;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: black;
+    z-index: 100;
+    overflow: auto;
+  }
+  
+  #window{
+    width: 350px;
+    height: 300px;
+    margin: 50px auto;
+    display: none;
+    background: white;
+    z-index: 200;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 15px;
+  }

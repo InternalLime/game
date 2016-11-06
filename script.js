@@ -15,13 +15,45 @@ var lvl= 1;
 
 function input() 
 {  
+  show('block');
+  clicking_test();
+}
+
+function make_program()
+{
   makegame();
   matrixArray(field_width,height_field);
   print();
-  clicking_test();
-  
+}
 
+function plan(initiative)
+{
+  show('none');
+  switch(initiative)
+  {
+    case "7":
+    field_width = 7;
+    height_field = 7; 
+    number_of_coins = 2; 
+    number_of_bombs = 10;
+    break; 
+    case "10":   
+    field_width = 10;
+    height_field = 10; 
+    number_of_coins = 3; 
+    number_of_bombs = 15;
+    break; 
+    case "14":   
+    field_width = 14;
+    height_field = 14; 
+    number_of_coins = 4; 
+    number_of_bombs = 22;
+    break; 
   }
+  make_program();
+}
+
+
 function makegame()
 {
   var box = document.getElementById("box");
@@ -81,8 +113,7 @@ function matrixArray(rows,columns)
     for( b=0; b<rows; b++)
     {
       matrix[a][b] = 0;
-      coordinates = a+","+b;
-      document.getElementById(coordinates).src="1.png";
+      update_image("leerer_block");
     }
   }
   generate("coun");
@@ -96,23 +127,27 @@ function  generate(object)
     case "coun":
     var number_of_object = number_of_coins;
     var object_value =1;
-     object_picture = "2.png";
     break; 
     case "bomb":   
     var number_of_object = number_of_bombs;
     var object_value =2;
-    object_picture  = "4.png";
     break; 
   }
   for(var already_have_object=0; already_have_object<number_of_object; already_have_object++)
   {
-    x = Math.floor((Math.random() *(field_width))); 
-    y = Math.floor((Math.random() *(field_width))); 
-    if (matrix[x][y] == 0)
+    a = Math.floor((Math.random() *(field_width))); 
+    b = Math.floor((Math.random() *(field_width))); 
+    if (matrix[a][b] == 0)
     {
-      matrix[x][y] = object_value;  
-      coordinates = x+","+y;
-      document.getElementById(coordinates).src=object_picture;
+      matrix[a][b] = object_value;  
+      if (object_value == 1)
+      {
+        update_image("place_a_coin");
+      }
+      else
+      {
+        update_image("place_a_bomb");
+      }
     }
     else
     {
@@ -137,15 +172,44 @@ function print()
     inspect += "\n";
   }
   document.getElementById("Text1").value = inspect; 
-  
 }
 
 
 
+function update_image(subject)
+{
+  switch(subject)
+  {
+    case "leerer_block":
+    coordinates = a+","+b;
+    document.getElementById(coordinates).src="1.png";
+    break; 
+
+    case "place_a_coin":
+    coordinates = a+","+b;
+    document.getElementById(coordinates).src="2.png";
+    break; 
+
+    case "place_a_bomb":   
+    coordinates = a+","+b;
+    document.getElementById(coordinates).src="4.png";
+    break;  
+
+    case "show_guy":   
+    coordinates = Xscan+","+Yscan;
+    document.getElementById(coordinates).src="3.png";
+    break; 
+
+    case "hide_guy":   
+    coordinates = Xscan+","+Yscan;
+    document.getElementById(coordinates).src="1.png";
+    break; 
+  }
+}
 
 function update()
 {
-  show_guy();
+  update_image("show_guy");
   if (matrix[Xscan][Yscan] == 2)
   {
     restart() 
@@ -156,10 +220,6 @@ function update()
     matrix[Xscan][Yscan] =0;
     chek_win(); 
   }
-  if (matrix[Xscan][Yscan] == 0)
-  {
-    score = score + 0; 
-  }
   document.getElementById("textscore").value = score;  
   matrix[Xscan][Yscan] =0;
   print(); 
@@ -169,7 +229,7 @@ function right()
 {
   if ( Yscan < field_width-1)
   {
-    hide_guy();
+    update_image("hide_guy");
     Yscan = Yscan + 1;
   }
   serialize_guy_position();
@@ -180,7 +240,7 @@ function left()
 {
   if ( Yscan > 0)
   {
-    hide_guy();
+    update_image("hide_guy");
     Yscan = Yscan -1;
   }
   serialize_guy_position();
@@ -190,7 +250,7 @@ function down()
 {
   if ( Xscan < field_width-1)
   {
-    hide_guy();
+    update_image("hide_guy");
     Xscan = Xscan + 1;
   }
   serialize_guy_position();
@@ -201,9 +261,9 @@ function up()
 {
   if ( Xscan > 0)
   {
-    hide_guy();
+    update_image("hide_guy");
     Xscan = Xscan - 1;
-     }
+  }
   serialize_guy_position();
   update();
 }
@@ -213,24 +273,9 @@ function serialize_guy_position()
   document.getElementById("inputValue").value = "X="+ Xscan + "Y=" + Yscan;  
 }
 
-function show_guy()
-{
-  coordinates = Xscan+","+Yscan;
-  document.getElementById(coordinates).src="3.png";
-}
-
-function hide_guy()
-{
-  coordinates = Xscan+","+Yscan;
-  document.getElementById(coordinates).src="1.png";
-}
-
-
-
-
 function restart() 
 {
-  hide_guy()
+  update_image("hide_guy");
   alert ('Game Over');  
   score = 0;
   lvl=1;
@@ -240,8 +285,7 @@ function restart()
     for(b = 0; b < height_field; b++)
     {     
       matrix[a][b] = 0;
-      coordinates = a+","+b;
-      document.getElementById(coordinates).src="1.png";
+      update_image("leerer_block");
     }
   }  
   Xscan = 1;
@@ -258,7 +302,7 @@ function  chek_win()
 {
   if (score == number_of_coins*lvl)
   {
-  hide_guy()
+  update_image("hide_guy");
   alert ('You win');  
   lvl=lvl+1;
   document.getElementById("level").value = 'level: '+lvl;  
@@ -267,8 +311,7 @@ function  chek_win()
     for(b = 0; b < height_field; b++)
     {     
       matrix[a][b] = 0;
-      coordinates = a+","+b;
-      document.getElementById(coordinates).src="1.png";
+      update_image("leerer_block");
     }
   }  
   Xscan = 0;
@@ -280,3 +323,9 @@ function  chek_win()
   } 
 }
 
+      function show(state){
+
+          document.getElementById('window').style.display = state;      
+          document.getElementById('wrap').style.display = state;      
+      }
+      
