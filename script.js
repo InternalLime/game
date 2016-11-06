@@ -26,38 +26,47 @@ function make_program()
   print();
 }
 
-function plan(initiative)
+function plan_a()
 {
   show('none');
-  switch(initiative)
-  {
-    case "a":
-    field_width = 7;
-    height_field = 7; 
-    number_of_coins = 2; 
-    number_of_bombs = 10;
-    break; 
-    case "b":   
-    field_width = 10;
-    height_field = 10; 
-    number_of_coins = 3; 
-    number_of_bombs = 15;
-    break; 
-    case "c":   
-    field_width = 14;
-    height_field = 14; 
-    number_of_coins = 4; 
-    number_of_bombs = 22;
-    break; 
-  }
+  field_width = 7;
+  height_field = 7; 
+  number_of_coins = 20; 
+  number_of_bombs = 12;
   make_program();
 }
 
+function plan_b()
+{
+  show('none');
+  field_width = 10;
+  height_field = 10; 
+  number_of_coins = 30; 
+  number_of_bombs = 17;
+  make_program();
+}
+
+function plan_c()
+{
+  show('none');
+  field_width = 14;
+  height_field = 14; 
+  number_of_coins = 70; 
+  number_of_bombs = 50;
+  make_program();
+}
 
 function makegame()
 {
   var box = document.getElementById("box");
   creteDivWithClass(box, "new_line");
+
+  var field_width2 = 82 * field_width;
+  var field_height2 = 82 * field_width + 80 ;
+
+  box.style.height = field_height2;
+  box.style.width = field_width2;
+
   for ( a = 0; a < field_width; a++)
   {
     for ( b = 0; b < height_field; b++)
