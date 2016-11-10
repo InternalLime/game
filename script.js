@@ -1,7 +1,7 @@
 var matrix=""; 
 var inspect = "";
-var Xscan = 1;
-var Yscan = 1;
+var Xscan = 0;
+var Yscan = 0;
 var score = 0; 
 var field_width = 10;
 var height_field = 10; 
@@ -24,6 +24,7 @@ function make_program()
   makegame();
   matrixArray(field_width,height_field);
   print();
+  update_image("show_guy");
 }
 
 function plan_a()
@@ -303,6 +304,9 @@ function restart()
   generate("coun");
   generate("bomb");
   print();
+  Xscan = 0;
+  Yscan = 0;
+  update_image("show_guy");
 }
 
 
@@ -329,6 +333,9 @@ function  chek_win()
   generate("coun");
   generate("bomb");
   print();
+  Xscan = 0;
+  Yscan = 0;
+  update_image("show_guy");
   } 
 }
 
