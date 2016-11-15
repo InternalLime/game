@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body>
+
+<script>
+    function sendResult() {
+      var login = document.getElementById("login").value;
+      var msg = document.getElementById("msg").value;
+      var state = document.getElementById("state");
+
+      state.value = "Отправляем результат";
+
+
+      var json = JSON.stringify({
+        "login": login,
+        "result": msg
+      });
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', '/send_result', true);
+      xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState != 4) return;
+
+        if (xhr.status != 200) {
+          state.value = 'Ошибка ' + xhr.status + ': ' + xhr.statusText;
+          return;
+        }
+
+        state.value = xhr.responseText;
+      }
+
+      xhr.send(json);
+
+    }
+
+    function showLiderboard()
+    {
+      var liderboard = document.getElementById("liderboard");
+      var state = document.getElementById("state");
+
+      state.value = "Получаем лидерборд";
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', '/get_lider_board', true);
+      xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState != 4) return;
+
+        if (xhr.status != 200) {
+          state.value = 'Ошибка ' + xhr.status + ': ' + xhr.statusText;
+          return;
+        }
+
+        liderboard.value = xhr.responseText;
+        state.value = "Лидерборд получен";
+      }
+
+      xhr.send();
+
+
+    }
+  </script>
+
+  <table>
+    <tr>
+      <td>
+        Логин
+      </td>
+      <td>
+        <input id="login" type="text" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Результат
+      </td>
+      <td>
+        <input id="msg" type="text" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Статус
+      </td>
+      <td>
+        <input id="state" type="text" />
+      </td>
+    </tr>
+  </table>
+  <button onclick="sendResult()" id="button">Отправить результат на сервер</button>
+  <button onclick="showLiderboard()" id="button">Получить лидерборд</button>
+  <textarea id="liderboard" type="text" cols="80" rows="10" style="width:240px; height:180px;" value="" />
+
+  
+
+</body>
+
+</html>
