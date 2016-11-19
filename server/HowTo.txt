@@ -1,5 +1,7 @@
 1. Устанавливаем Node.js (https://nodejs.org/en/)
 2. Устанавливаем MongoDB (https://www.mongodb.com/)
+3. Настройка node js: набрать команду в папке сервера npm install node-static
+4. Настройка mongo db: набрать команду в папке сервера npm install mongodb --save
 3. Запуск сервера игры node server.js (в отдельной консоли, в папке server)
 4. Запуск сервера базы данных mongod --dbpath=data (в отдельной консоли, в папке server, не в той где запускается сервер)
 5. Запуск игры. Браузер localhost:8080
